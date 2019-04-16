@@ -1,11 +1,10 @@
 # simple-units
 A Haskell library for simple arithmetic with SI units using type-checked dimensional analysis.
 
-```
+```haskell
 >>> let newton = kilogram .* meter ./ (second .* second)
 >>> 23*newton
 23.0 kg*m/s^2
-<BLANKLINE>
 >>> let g = 6.67408e-11 * newton .* (meter .* meter) ./ (kilogram .* kilogram)
 >>> g -- gravitational constant
 6.67408e-11 m^3/kg*s^2
