@@ -8,7 +8,6 @@ copyright:           "2019 Gustavo Roscoe"
 
 extra-source-files:
   - README.md
-  - ChangeLog.md
 
 synopsis:            Simple arithmetic with SI units using type-checked dimensional analysis.
 category:            Numeric, Numerical
