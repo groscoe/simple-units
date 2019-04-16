@@ -1,0 +1,26 @@
+name:                simple-units
+version:             0.1.0.0
+github:              "groscoe/simple-units"
+license:             MIT
+author:              "Gustavo Roscoe"
+maintainer:          "gustavo@gustavoroscoe.com"
+copyright:           "2019 Gustavo Roscoe"
+
+extra-source-files:
+  - README.md
+  - ChangeLog.md
+
+synopsis:            Simple arithmetic with SI units with type-checked dimensional analysis.
+category:            Numeric, Numerical
+description:         Please see the README on GitHub at <https://github.com/groscoe/simple-units#readme>
+
+library:
+  source-dirs: src
+  exposed-modules:
+    Units.Simple
+  ghc-options:
+    - -Wall
+    - -Wcompat
+  dependencies:
+    - base >= 4.9 && < 5
+    - first-class-families >= 0.5
