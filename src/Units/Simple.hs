@@ -2,17 +2,32 @@
 {-# LANGUAGE PolyKinds #-}
 {-# LANGUAGE DataKinds #-}
 module Units.Simple
-  ( Unit (..)
-  , Unit'
+  (-- *The @Quantity@ type
+    Quantity ()
+  , fromQuantity
+  , Unit (..)
   , Units
+  , SingleUnit
   , UnitRepr
   , showUnits
-  , Quantity ()
-  , fromQuantity
+
+  -- * Basic arithmetic with quantities
   , (.+)
   , (.-)
   , (.*)
   , (./)
+
+  -- *Base SI Units
+  -- |Smart constructors for quantities in all the base SI Units.
+  -- The constructors are provided in both unitary (non-ticked) and
+  -- function (ticked) forms.
+  --
+  -- Examples:
+  --
+  -- >>> 273.0*kelvin -- unitary form
+  -- 273.0 K
+  -- >>> kelvin' 273.0 -- function form
+  -- 273.0 K
   , adim
   , adim'
   , meter
@@ -39,6 +54,18 @@ import Units.Simple.Unit
 type SingleUnit (u :: Unit) = '( '[ '(u, 1)], '[])
 type Adimensional = '( '[], '[])
 
+-- | A quantity with no associated dimension. Can be multiplied or divided
+-- by any other quantity, but can only be added to or subtracted from
+-- other adimensional quantities.
+--
+-- >>> 2*adim + 4*adim
+-- 6 <adimensional>
+-- >>> adim .+ meter
+-- <BLANKLINE>
+-- <interactive>:79:1-13: error:
+--     • Unit mismatch: <adimensional> and m
+--     • In the expression: adim .+ meter
+--       In an equation for ‘it’: it = adim .+ meter
 adim :: Num a => Quantity Adimensional a
 adim = Quantity 1
 

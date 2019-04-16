@@ -56,6 +56,7 @@ type UnitRepr' (num :: [Unit']) (denom :: [Unit']) =
 
 type UnitRepr (us :: Units) = UnitRepr' (Eval (Fst us)) (Eval (Snd us))
 
+-- | A string representation of "Units". Useful for debugging.
 showUnits :: forall us. KnownSymbol (UnitRepr us) => String
 showUnits = symbolVal (Proxy @(UnitRepr us))
 

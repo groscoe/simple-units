@@ -91,28 +91,64 @@ data Recip' :: Units -> Exp Units
 type instance Eval (Recip' '(num, denom)) = '(denom, num)
 type Recip a = Eval (Recip' a)
 
-
+-- |Sums two quantities with the same units. Summing quantities with different units
+-- results in a type error.
+--
+-- Examples:
+--
+-- >>> 2*meter .+ 3*meter
+-- 5 m
+-- >>> 2*meter .+ 1*second
+-- <BLANKLINE>
+-- <interactive>:16:1-19: error:
+--     • Unit mismatch: m and s
+--     • In the expression: 2 * meter .+ 1 * second
+--       In an equation for ‘it’: it = 2 * meter .+ 1 * second
 (.+) :: (SameUnits u1 u2, Num a) => Quantity u1 a -> Quantity u2 a -> Quantity u1 a
 Quantity x .+ Quantity y = Quantity (x + y)
 infixl 5 .+
 
+-- |Subtracts two quantities with the same units. Subtracting quantities with different units
+-- results in a type error.
+--
+-- Examples:
+--
+-- >>> let newton = kilogram .* meter ./ (second .* second)
+-- >>> 10*newton - 2*newton
+-- 8.0 kg*m/s^2
 (.-) :: (SameUnits u1 u2, Num a) => Quantity u1 a -> Quantity u2 a -> Quantity u1 a
 Quantity x .- Quantity y = Quantity (x - y)
 infixl 5 .-
 
+-- |Multiplies two quantities correctly merging their units.
+--
+-- Examples:
+--
+-- >>> meter .* meter
+-- 1 m^2
+-- >>> let mps = meter ./ second
+-- >>> 20*mps .* 60*second
+-- 1200.0 m
+--
+-- __Important:__ Though @Quantity a@ has a @Num@ instance for convenience, it
+-- __must not__ be used for anything other than interacting with literals, otherwise
+-- the units will __not__ be correct:
+--
+-- >>> 2*meter * 3*meter -- note that (*) was used in place of (.*)
+-- 6 m
+-- >>> 2*meter .* 3*meter -- this is the correct usage
+-- 6 m^2
 (.*) :: Num a => Quantity us1 a -> Quantity us2 a -> Quantity (MergeUnits us1 us2) a
 Quantity x .* Quantity y = Quantity (x * y)
 infixl 6 .*
 
+-- | Divides a quantity by another correctly merging their units.
+--
+-- Examples:
+--
+-- >>> let coulomb = second .* ampere
+-- >>> 20*coulomb ./ 2*second
+-- 10.0 A
 (./) :: Fractional a => Quantity us1 a -> Quantity us2 a -> Quantity (MergeUnits us1 (Recip us2)) a
 Quantity x ./ Quantity y = Quantity (x / y)
 infixl 6 ./
-
--- -- NOTE: Work in progress - exponentiation
--- type ExpUnitList (n :: Nat) (us :: [Unit']) = Map (Map ((Fcf.*) n)) us
--- type ExpUnits (n :: Nat) (u :: Units) = '(Eval (ExpUnitList n (Eval (Fst u))), Eval (Snd u))
-
--- expQ :: forall n a u. (KnownNat n, Num a)
---      => Quantity u a
---      -> Quantity (ExpUnits n u) a
--- expQ (Quantity x) = Quantity (x ^ natVal (Proxy @n))
