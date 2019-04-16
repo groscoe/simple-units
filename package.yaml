@@ -10,7 +10,7 @@ extra-source-files:
   - README.md
   - ChangeLog.md
 
-synopsis:            Simple arithmetic with SI units with type-checked dimensional analysis.
+synopsis:            Simple arithmetic with SI units using type-checked dimensional analysis.
 category:            Numeric, Numerical
 description:         Please see the README on GitHub at <https://github.com/groscoe/simple-units#readme>
 
