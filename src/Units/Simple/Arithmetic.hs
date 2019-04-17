@@ -96,8 +96,8 @@ type Recip a = Eval (Recip' a)
 --
 -- Examples:
 --
--- >>> 2*meter .+ 3*meter
--- 5 m
+-- >>> 2 * kilo meter .+ 3 * kilo meter
+-- 5000 m
 -- >>> 2*meter .+ 1*second
 -- <BLANKLINE>
 -- <interactive>:16:1-19: error:
