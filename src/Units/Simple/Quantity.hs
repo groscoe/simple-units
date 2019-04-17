@@ -56,7 +56,7 @@ import Units.Simple.Unit
 -- >>> weight_on_mars (80 * kilo gram)
 -- 298.22370259533704 kg*m/s^2
 -- >>> weight_on_mars 1 / weight_on_earth 1
--- 0.3796261966575378
+-- 0.3796261966575378 <adimensional>
 newtype Quantity (us :: Units) a =
   Quantity {
     fromQuantity :: a -- ^Unwraps a 'Quantity', losing all unit information
