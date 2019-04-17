@@ -12,7 +12,7 @@ A Haskell library for simple arithmetic with SI units using type-checked dimensi
 >>> let earth_mass = 5.972e24 * kilogram
 >>> let mars_mass = 6.417e23 * kilogram
 >>> let earth_radius = 6371 * kilo meter
->>> let mars_radius = 3389.5 * kio meter
+>>> let mars_radius = 3389.5 * kilo meter
 >>> let weight_on_earth mass = gravity mass earth_mass earth_radius
 >>> let weight_on_mars mass = gravity mass mars_mass mars_radius
 >>> weight_on_earth (80 * kilogram)
