@@ -19,6 +19,6 @@ A Haskell library for simple arithmetic with SI units using type-checked dimensi
 785.5719790179963 kg*m/s^2
 >>> weight_on_mars (80 * kilogram)
 298.22370259533704 kg*m/s^2
->>> fromQuantity $ weight_on_mars 1 / (fromQuantity $ weight_on_earth 1)
-0.3796261966575378
+>>> weight_on_mars 1 ./ weight_on_earth 1
+0.3796261966575378 <adimensional>
 ```

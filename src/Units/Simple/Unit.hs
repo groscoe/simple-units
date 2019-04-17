@@ -10,11 +10,11 @@
 module Units.Simple.Unit where
 
 import Data.Proxy
-import GHC.TypeLits
+import GHC.TypeLits hiding (type (<=))
 
-import Fcf
+import Fcf hiding (type (<=))
 
-import Units.Simple.Internals (Show', Intersperse, QSort, LE)
+import Units.Simple.Internals (Show', Intersperse, Sort, type (<=))
 
 data Unit = Meter
           | Kilogram
@@ -43,7 +43,7 @@ type instance Eval (ShowUnit '(u, n)) =
      (UnitSymbol u)
      (UnitSymbol u `AppendSymbol` "^" `AppendSymbol` Eval (Show' n))
 
-type ShowUnitList (ul :: [Unit']) = Eval (Intersperse "*" =<< Map ShowUnit =<< QSort ul)
+type ShowUnitList (ul :: [Unit']) = Eval (Intersperse "*" =<< Map ShowUnit =<< Sort ul)
 
 type UnitRepr' (num :: [Unit']) (denom :: [Unit']) =
   If (Eval (Eval (Null num) && Eval (Null denom)))
@@ -60,4 +60,4 @@ type UnitRepr (us :: Units) = UnitRepr' (Eval (Fst us)) (Eval (Snd us))
 showUnits :: forall us. KnownSymbol (UnitRepr us) => String
 showUnits = symbolVal (Proxy @(UnitRepr us))
 
-type instance Eval ((a :: Unit) `LE` (b :: Unit)) = Eval (UnitSymbol a `LE` UnitSymbol b)
+type instance Eval ((a :: Unit) <= (b :: Unit)) = Eval (UnitSymbol a <= UnitSymbol b)

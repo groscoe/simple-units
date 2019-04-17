@@ -18,7 +18,7 @@ import Fcf
 
 import Units.Simple.Unit
 import Units.Simple.Quantity
-import Units.Simple.Internals (Foldl, DeleteBy)
+import Units.Simple.Internals (Foldl, DeleteBy, Sort)
 
 
 data Lookup' :: [(k, b)] -> k -> Exp (Maybe b)
@@ -54,7 +54,7 @@ type instance Eval (CancelUnit '(a, m) '(b, n)) =
      '( '(a, m TL.- n), '(b, 0))
 
 type GetMatchingUnits l1 l2 =
-  (Filter (Flip UnitInList l2) *** Filter (Flip UnitInList l1)) '(l1, l2)
+  (Filter (Flip UnitInList l2) *** Filter (Flip UnitInList l1)) =<< (Sort *** Sort) '(l1, l2)
 type CancelMatchingUnitLists l1 l2 =
   Unzip (Uncurry (ZipWith CancelUnit) (Eval (GetMatchingUnits l1 l2)))
 type CancelUnitLists l1 l2 =

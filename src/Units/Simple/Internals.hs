@@ -5,9 +5,11 @@
 {-# LANGUAGE TypeFamilies #-}
 module Units.Simple.Internals where
 
-import GHC.TypeLits as TL
+import GHC.TypeLits hiding (type (<=))
+import qualified GHC.TypeLits as TL
 
-import Fcf
+import Fcf hiding (type (<=))
+import qualified Fcf
 
 
 data ApSep :: Symbol -> Symbol -> Symbol -> Exp Symbol
@@ -48,23 +50,23 @@ type instance Eval (Show' (n :: Nat)) = Eval (Guarded n
    ])
 
 
-data LE :: k -> k -> Exp Bool
-type instance Eval ((a :: Nat) `LE` (b :: Nat)) = a <=? b
-type instance Eval ((a :: Symbol) `LE` (b :: Symbol)) = Eval (Guarded (CmpSymbol a b)
+data (<=) :: k -> k -> Exp Bool
+type instance Eval ((a :: Nat) <= (b :: Nat)) = a <=? b
+type instance Eval ((a :: Symbol) <= (b :: Symbol)) = Eval (Guarded (CmpSymbol a b)
   '[ TyEq 'EQ ':= Pure 'True
    , TyEq 'LT ':= Pure 'True
    , Otherwise ':= Pure 'False
    ])
-type instance Eval ('(a, _) `LE` '(b, _)) = Eval (a `LE` b)
+type instance Eval ('(a, _) <= '(b, _)) = Eval (a <= b)
 
 
-data QSort :: [a] -> Exp [a]
-type instance Eval (QSort '[]) = '[]
-type instance Eval (QSort (pivot ': rest)) =
+data Sort :: [a] -> Exp [a]
+type instance Eval (Sort '[]) = '[]
+type instance Eval (Sort (pivot ': rest)) =
   Eval (Eval
-        (Eval (QSort (Eval (Filter (Flip LE pivot) rest)))
+        (Eval (Sort (Eval (Filter (Flip (<=) pivot) rest)))
                ++ '[pivot])
-        ++ Eval (QSort (Eval (Filter (Not <=< Flip LE pivot) rest))))
+        ++ Eval (Sort (Eval (Filter (Not <=< Flip (<=) pivot) rest))))
 
 data DeleteBy :: (a -> a-> Exp Bool) -> a -> [a] -> Exp [a]
 type instance Eval (DeleteBy _ _ '[]) = '[]
