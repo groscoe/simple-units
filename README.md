@@ -1,5 +1,11 @@
 # simple-units
-A Haskell library for simple arithmetic with SI units using type-checked dimensional analysis. Haddock documentation available on groscoe.github.io/simple-units/.
+A Haskell library for simple arithmetic with SI units using type-checked dimensional analysis. 
+
+[Haddock documentation](groscoe.github.io/simple-units/)
+
+View on [hackage](https://hackage.haskell.org/package/simple-units).
+
+# Example
 
 ```haskell
 >>> let newton = kilogram .* meter ./ (second .* second)
