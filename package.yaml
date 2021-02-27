@@ -1,5 +1,5 @@
 name:                simple-units
-version:             1.0.1.1
+version:             1.0.2
 github:              "groscoe/simple-units"
 license:             MIT
 author:              "Gustavo Roscoe"
@@ -22,4 +22,4 @@ library:
     - -Wcompat
   dependencies:
     - base >= 4.9 && < 5
-    - first-class-families >= 0.5 && < 0.6
+    - first-class-families >= 0.4 && < 0.9

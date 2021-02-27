@@ -1,8 +1,8 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE PolyKinds #-}
-{-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 module Units.Simple.Internals where
 
 import GHC.TypeLits hiding (type (<=))
@@ -44,19 +44,23 @@ data (%) :: Nat -> Nat -> Exp Nat
 type instance Eval (a % b) = a `TL.Mod` b
 
 data Show' :: a -> Exp Symbol
-type instance Eval (Show' (n :: Nat)) = Eval (Guarded n
-  '[ Flip (Fcf.<=) 9 ':= NatToDigit n
-   , Otherwise ':= Show' (Eval (n / 10)) <> Show' (Eval (n % 10))
-   ])
+type instance Eval (Show' (n :: Nat)) =
+  Eval (
+    If (Eval ((Fcf.<=) n 9))
+       (NatToDigit n)
+       (Show' (Eval (n / 10)) <> Show' (Eval (n % 10)))
+  )
 
 
 data (<=) :: k -> k -> Exp Bool
 type instance Eval ((a :: Nat) <= (b :: Nat)) = a <=? b
-type instance Eval ((a :: Symbol) <= (b :: Symbol)) = Eval (Guarded (CmpSymbol a b)
-  '[ TyEq 'EQ ':= Pure 'True
-   , TyEq 'LT ':= Pure 'True
-   , Otherwise ':= Pure 'False
-   ])
+type instance Eval ((a :: Symbol) <= (b :: Symbol)) =
+  Eval (
+    If (Eval (TyEq 'GT (CmpSymbol a b)))
+       (Pure 'False)
+       (Pure 'True)
+  )
+
 type instance Eval ('(a, _) <= '(b, _)) = Eval (a <= b)
 
 

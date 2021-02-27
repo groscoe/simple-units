@@ -1,6 +1,5 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE PolyKinds #-}
-{-# LANGUAGE DataKinds #-}
 module Units.Simple
   (-- *The @Quantity@ type
     Quantity ()
