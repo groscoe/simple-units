@@ -1,3 +1,4 @@
 resolver: lts-13.2
+pvp-bounds: both
 extra-deps:
 - first-class-families-0.8.0.0@sha256:a26c470290dc80349fdec6f2f49a9ae02c9ac45334a5af3bd4afcd347be4e60b,1839

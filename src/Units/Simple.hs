@@ -23,6 +23,7 @@ module Units.Simple
   --
   -- Examples:
   --
+  -- >>> import Units.Simple
   -- >>> 273.0*kelvin -- unitary form
   -- 273.0 K
   -- >>> kelvin' 273.0 -- function form
@@ -110,7 +111,7 @@ type Adimensional = '( '[], '[])
 -- 6 <adimensional>
 -- >>> adim .+ meter
 -- <BLANKLINE>
--- <interactive>:79:1-13: error:
+-- <interactive>... error:
 --     • Unit mismatch: <adimensional> and m
 --     • In the expression: adim .+ meter
 --       In an equation for ‘it’: it = adim .+ meter

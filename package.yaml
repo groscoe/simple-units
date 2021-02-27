@@ -23,3 +23,16 @@ library:
   dependencies:
     - base >= 4.9 && < 5
     - first-class-families >= 0.4 && < 0.9
+
+tests:
+  simple-units-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - base
+    - simple-units
+    - doctest

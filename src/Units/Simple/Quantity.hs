@@ -21,6 +21,7 @@ import Units.Simple.Unit
 --
 -- Examples:
 --
+-- >>> import Units.Simple
 -- >>> meter -- a unitary quantity associated to meters.
 -- 1 m
 -- >>> 2.5*ampere -- constructing through literal arithmetic

@@ -96,11 +96,12 @@ type Recip a = Eval (Recip' a)
 --
 -- Examples:
 --
+-- >>> import Units.Simple
 -- >>> 2 * kilo meter .+ 3 * kilo meter
 -- 5000 m
 -- >>> 2*meter .+ 1*second
 -- <BLANKLINE>
--- <interactive>:16:1-19: error:
+-- <interactive>... error:
 --     • Unit mismatch: m and s
 --     • In the expression: 2 * meter .+ 1 * second
 --       In an equation for ‘it’: it = 2 * meter .+ 1 * second
@@ -113,6 +114,7 @@ infixl 5 .+
 --
 -- Examples:
 --
+-- >>> import Units.Simple
 -- >>> let newton = kilogram .* meter ./ (second .* second)
 -- >>> 10*newton - 2*newton
 -- 8.0 kg*m/s^2
@@ -124,6 +126,7 @@ infixl 5 .-
 --
 -- Examples:
 --
+-- >>> import Units.Simple
 -- >>> meter .* meter
 -- 1 m^2
 -- >>> let mps = meter ./ second
@@ -146,6 +149,7 @@ infixl 6 .*
 --
 -- Examples:
 --
+-- >>> import Units.Simple
 -- >>> let coulomb = second .* ampere
 -- >>> 20*coulomb ./ 2*second
 -- 10.0 A
